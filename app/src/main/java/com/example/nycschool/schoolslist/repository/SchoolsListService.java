@@ -7,7 +7,8 @@ import java.util.List;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 
-interface SchoolsListEndpoint {
-    @GET("v2/organizations/{organization_id}/teams/")
+public interface SchoolsListService {
+
+    @GET("resource/s3k6-pzi2.json")
     Single<List<School>> getAllSchools();
 }

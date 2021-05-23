@@ -3,7 +3,6 @@ package com.example.nycschool.schoolslist.recyclerview;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,12 +11,18 @@ import com.example.nycschool.R;
 import com.example.nycschool.models.School;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SchoolsListAdapter extends RecyclerView.Adapter<SchoolsListViewHolder> {
-    private final ArrayList<School> schools;
+    private final List<School> schools;
+    private final SchoolsListNavigationDelegate navDelegate;
 
-    public SchoolsListAdapter(ArrayList<School> schools) {
+    public SchoolsListAdapter(
+        List<School> schools,
+        SchoolsListNavigationDelegate navDelegate
+    ) {
         this.schools = schools;
+        this.navDelegate = navDelegate;
     }
 
     @NonNull
@@ -27,21 +32,34 @@ public class SchoolsListAdapter extends RecyclerView.Adapter<SchoolsListViewHold
 
         SchoolsListItemView listItem = new SchoolsListItemView(parent.getContext());
         listItem.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        SchoolsListViewHolder viewHolder = new SchoolsListViewHolder(listItem);
 
-        return viewHolder;
+        return new SchoolsListViewHolder(listItem);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SchoolsListViewHolder holder, int position) {
         SchoolsListItemView view = holder.getItemView();
 
-        view.setSchoolName(schools.get(position).getName());
-        view.setSchoolAddress(schools.get(position).getAddress());
+        view.setSchoolName(schools.get(position).name);
+        view.setSchoolAddress(schools.get(position).address);
+        view.setOnClickListener(new ListItemClickListener(position));
     }
 
     @Override
     public int getItemCount() {
         return schools.size();
+    }
+
+    private class ListItemClickListener implements View.OnClickListener {
+        private final int index;
+
+        public ListItemClickListener(int index) {
+            this.index = index;
+        }
+
+        @Override
+        public void onClick(View v) {
+            navDelegate.navigateToDetail(schools.get(index));
+        }
     }
 }
