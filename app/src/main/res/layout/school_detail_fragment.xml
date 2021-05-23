@@ -20,25 +20,27 @@
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="10dp">
 
+
             <TextView
+                style="@style/TextViewStyle"
                 android:id="@+id/school_detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/black" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
             <TextView
+                style="@style/TextViewStyle"
                 android:id="@+id/school_website"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autoLink="web"/>
 
             <TextView
+                style="@style/TextViewStyle"
                 android:id="@+id/school_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black" />
+                android:layout_marginTop="10dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -53,6 +55,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:id="@+id/school_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,6 +63,7 @@
                     android:autoLink="phone"/>
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:id="@+id/school_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,12 +79,12 @@
                 android:background="@android:color/darker_gray" />
 
             <TextView
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="@string/sat_summary_title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/black" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -89,13 +93,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/participants_label"
-                    android:textColor="@color/black" />
+                    android:text="@string/participants_label" />
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:id="@+id/sat_participants"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,8 +108,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="@string/loading"
-                    android:textColor="@color/black" />
+                    android:text="@string/loading" />
             </LinearLayout>
 
             <LinearLayout
@@ -114,13 +118,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/avg_reading_score_label"
-                    android:textColor="@color/black" />
+                    android:text="@string/avg_reading_score_label"/>
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:id="@+id/sat_reading_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -128,8 +133,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="@string/loading"
-                    android:textColor="@color/black" />
+                    android:text="@string/loading" />
             </LinearLayout>
 
             <LinearLayout
@@ -139,13 +143,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/avg_math_score_label"
-                    android:textColor="@color/black" />
+                    android:text="@string/avg_math_score_label" />
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:id="@+id/sat_math_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -153,8 +158,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="@string/loading"
-                    android:textColor="@color/black" />
+                    android:text="@string/loading" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,21 +168,21 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/avg_writing_score_label"
-                    android:textColor="@color/black" />
+                    android:text="@string/avg_writing_score_label"/>
 
                 <TextView
+                    style="@style/TextViewStyle"
                     android:id="@+id/sat_writing_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="left"
-                    android:textColor="@color/black" />
+                    android:gravity="left" />
             </LinearLayout>
 
 

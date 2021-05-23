@@ -14,9 +14,7 @@ import com.example.nycschool.schoolslist.repository.SchoolsListRepository;
 
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
 
 public class SchoolsListViewModel extends BaseViewModel {
     /*
