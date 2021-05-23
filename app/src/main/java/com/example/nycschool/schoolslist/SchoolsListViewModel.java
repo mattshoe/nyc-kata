@@ -21,6 +21,8 @@ public class SchoolsListViewModel extends BaseViewModel {
         Given more time I'd create a custom view model provider factory to control instantiation,
         and thus dependency injection via constructor. Sticking with member injection for sake
         of time
+
+        Also could have used Dagger
      */
     public MutableLiveData<List<School>> schoolsLiveData;
     public MutableLiveData<Throwable> schoolsErrorLiveData;

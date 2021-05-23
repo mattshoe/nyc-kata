@@ -1,12 +1,10 @@
 package com.example.nycschool.schooldetail;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-
 import com.example.nycschool.common.BaseViewModel;
 import com.example.nycschool.common.ISchedulerProvider;
 import com.example.nycschool.common.NavArguments;
@@ -15,7 +13,6 @@ import com.example.nycschool.models.SATSummary;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schooldetail.repository.ISATSummaryRepository;
 import com.example.nycschool.schooldetail.repository.SATSummaryRepository;
-
 import io.reactivex.observers.DisposableSingleObserver;
 
 public class SchoolDetailViewModel extends BaseViewModel {
@@ -35,8 +32,8 @@ public class SchoolDetailViewModel extends BaseViewModel {
     }
     
     @Override
-    public void initialize(Bundle info) {        
-        school = info.getParcelable(NavArguments.SCHOOL_DETAIL_BUNDLE_KEY);
+    public void initialize(Bundle args) {
+        school = args.getParcelable(NavArguments.SCHOOL_DETAIL_BUNDLE_KEY);
     }
 
     public void loadSATSummary() {
@@ -47,15 +44,15 @@ public class SchoolDetailViewModel extends BaseViewModel {
     }
 
     public void observeSATSummary(
-            @NonNull LifecycleOwner owner,
-            @NonNull Observer<SATSummary> observer
+        @NonNull LifecycleOwner owner,
+        @NonNull Observer<SATSummary> observer
     ) {
         summaryLiveData.observe(owner, observer);
     }
 
     public void observeSATSummaryError(
-            @NonNull LifecycleOwner owner,
-            @NonNull Observer<Throwable> observer
+        @NonNull LifecycleOwner owner,
+        @NonNull Observer<Throwable> observer
     ) {
         summaryErrorLiveData.observe(owner, observer);
     }

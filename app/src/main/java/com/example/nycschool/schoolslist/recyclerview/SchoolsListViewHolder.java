@@ -1,7 +1,5 @@
 package com.example.nycschool.schoolslist.recyclerview;
 
-import android.view.View;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SchoolsListViewHolder extends RecyclerView.ViewHolder {

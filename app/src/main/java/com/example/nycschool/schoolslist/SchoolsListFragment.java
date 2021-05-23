@@ -2,23 +2,20 @@ package com.example.nycschool.schoolslist;
 
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavDirections;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.nycschool.R;
 import com.example.nycschool.common.BaseFragment;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schoolslist.recyclerview.LayoutManagerFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListAdapterFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListNavigationDelegate;
-
 import java.util.List;
 
 /*
-    Given more time, I'd have implemented a quarantine pattern to extract all logic into a
+    Given more time, I'd have implemented a quarantine pattern to extract all logic here into a
     collaborator that holds a reference to the fragment so that the fragment logic could be tested
     in a vacuum without requiring instrumented tests.
  */
@@ -112,7 +109,7 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         }
     }
 
-    class NavDirectionsProvider {
+    public class NavDirectionsProvider {
         public NavDirections navigateToSchoolDetail(School school) {
             return SchoolsListFragmentDirections.Companion.actionSchoolsListFragmentToSchoolDetailtFragment(school);
         }

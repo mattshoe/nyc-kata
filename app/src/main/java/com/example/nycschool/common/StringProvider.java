@@ -1,7 +1,6 @@
 package com.example.nycschool.common;
 
 import android.content.Context;
-
 import androidx.annotation.StringRes;
 
 public class StringProvider implements IStringProvider {

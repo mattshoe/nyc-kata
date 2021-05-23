@@ -1,16 +1,12 @@
 package com.example.nycschool.schooldetail;
 
 import androidx.lifecycle.Observer;
-
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.nycschool.R;
 import com.example.nycschool.common.BaseFragment;
 import com.example.nycschool.models.SATSummary;
@@ -28,7 +24,7 @@ public class SchoolDetailFragment extends BaseFragment<SchoolDetailViewModel> {
 
     @Override
     protected void initialize() {
-        vmClass = SchoolDetailViewModel.class; // Type erasure
+        vmClass = SchoolDetailViewModel.class; // Type erasure forces explicit declaration of view model type
         layoutId = R.layout.school_detail_fragment;
         enableBackNav = true;
     }
