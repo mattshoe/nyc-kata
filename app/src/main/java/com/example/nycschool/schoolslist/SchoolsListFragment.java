@@ -1,13 +1,11 @@
 package com.example.nycschool.schoolslist;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -16,11 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.nycschool.R;
+import com.example.nycschool.common.BaseFragment;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schoolslist.recyclerview.LayoutManagerFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListAdapterFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListNavigationDelegate;
-import com.example.nycschool.util.Toaster;
+import com.example.nycschool.common.Toaster;
 
 import java.util.List;
 
@@ -29,28 +28,27 @@ import java.util.List;
     collaborator that holds a reference to the fragment so that the fragment logic could be tested
     in a vacuum without requiring instrumented tests
  */
-public class SchoolsListFragment extends Fragment implements SchoolsListNavigationDelegate {
+public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> implements SchoolsListNavigationDelegate {
     /*
         Breaking encapsulation here only because we do not control instantiation of fragments,
         so in order to make it testable must do member injection as opposed to constructor
         injection. This would be unnecessary if I'd have used the quarantine pattern as i could
         inject dependencies directly into the constructor
      */
-    public View rootView;
-    public ViewModelProvider viewModelProvider;
     public LayoutManagerFactory layoutManagerFactory;
     public SchoolsListAdapterFactory schoolsListAdapterFactory;
     public Toaster toaster;
 
-    private SchoolsListViewModel mViewModel;
+    @Override
+    protected void initialize() {
+        vmClass = SchoolsListViewModel.class; // Type Erasure forces us to provide class here where type is known
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Construct dependencies
-        viewModelProvider = new ViewModelProvider(this);
-        mViewModel = viewModelProvider.get(SchoolsListViewModel.class);
         layoutManagerFactory = new LayoutManagerFactory();
         schoolsListAdapterFactory = new SchoolsListAdapterFactory();
         toaster = new Toaster();
@@ -66,9 +64,9 @@ public class SchoolsListFragment extends Fragment implements SchoolsListNavigati
 
         // I'm ok with newing up these observers because i can capture them in tests via
         // the mock viewmodel
-        mViewModel.observeSchoolsList(this, new SchoolsListSuccessObserver());
-        mViewModel.observeSchoolsListError(this, new SchoolsListErrorObserver());
-        mViewModel.loadSchools();
+        viewModel.observeSchoolsList(this, new SchoolsListSuccessObserver());
+        viewModel.observeSchoolsListError(this, new SchoolsListErrorObserver());
+        viewModel.loadSchools();
 
         return rootView;
     }
@@ -83,15 +81,16 @@ public class SchoolsListFragment extends Fragment implements SchoolsListNavigati
     }
 
     private void showDataLoadError() {
+        // In a production app this would be more robust and include remote logging, view updates, etc
         toaster.show(getContext(), "Unable to load schools list", Toast.LENGTH_SHORT);
     }
 
     @Override
     public void navigateToDetail(School school) {
-        toaster.show(getContext(), school.name, Toast.LENGTH_LONG);
+        toaster.show(getContext(), school.getName(), Toast.LENGTH_LONG);
     }
 
-    public class SchoolsListSuccessObserver implements Observer<List<School>> {
+    private class SchoolsListSuccessObserver implements Observer<List<School>> {
         @Override
         public void onChanged(List<School> schools) {
             if (schools == null)
@@ -101,7 +100,7 @@ public class SchoolsListFragment extends Fragment implements SchoolsListNavigati
         }
     }
 
-    public class SchoolsListErrorObserver implements Observer<Throwable> {
+    private class SchoolsListErrorObserver implements Observer<Throwable> {
         @Override
         public void onChanged(Throwable throwable) {
             if (throwable != null)

@@ -1,13 +1,12 @@
 package com.example.nycschool.schoolslist;
 
-import android.net.wifi.aware.PublishConfig;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.example.nycschool.common.BaseViewModel;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schoolslist.repository.SchoolsListRepository;
 
@@ -17,7 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class SchoolsListViewModel extends ViewModel {
+public class SchoolsListViewModel extends BaseViewModel {
     /*
         Given more time I'd create a custom view model provider factory to control instantiation,
         and thus dependency injection via constructor. Sticking with member injection for sake

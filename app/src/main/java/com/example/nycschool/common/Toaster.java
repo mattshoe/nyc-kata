@@ -1,4 +1,4 @@
-package com.example.nycschool.util;
+package com.example.nycschool.common;
 
 import android.content.Context;
 import android.widget.Toast;

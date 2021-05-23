@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nycschool.R;
 import com.example.nycschool.models.School;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SchoolsListAdapter extends RecyclerView.Adapter<SchoolsListViewHolder> {
@@ -40,8 +39,8 @@ public class SchoolsListAdapter extends RecyclerView.Adapter<SchoolsListViewHold
     public void onBindViewHolder(@NonNull SchoolsListViewHolder holder, int position) {
         SchoolsListItemView view = holder.getItemView();
 
-        view.setSchoolName(schools.get(position).name);
-        view.setSchoolAddress(schools.get(position).address);
+        view.setSchoolName(schools.get(position).getName());
+        view.setSchoolAddress(schools.get(position).getAddress());
         view.setOnClickListener(new ListItemClickListener(position));
     }
 

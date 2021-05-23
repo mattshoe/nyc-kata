@@ -7,6 +7,21 @@
     <fragment
         android:id="@+id/schools_list_fragment"
         android:name="com.example.nycschool.schoolslist.SchoolsListFragment"
-        android:label="SchoolsListFragment" />
+        android:label="SchoolsListFragment">
+
+        <action
+            android:id="@+id/action_schools_list_fragment_to_school_detailt_fragment"
+            app:destination="@id/school_detailt_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/school_detailt_fragment"
+        android:name="com.example.nycschool.schooldetail.SchoolDetailFragment"
+        android:label="SchoolDetailFragment">
+        <argument
+            android:name="school"
+            app:argType="com.example.nycschool.models.School" />
+    </fragment>
+
 
 </navigation>

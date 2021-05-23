@@ -1,7 +1,6 @@
 package com.example.nycschool.schoolslist.recyclerview;
 
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.nycschool.models.School;
 
 import java.util.List;
