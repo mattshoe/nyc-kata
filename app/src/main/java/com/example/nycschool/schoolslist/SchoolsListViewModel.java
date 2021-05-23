@@ -4,9 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.example.nycschool.common.BaseViewModel;
+import com.example.nycschool.common.ISchedulerProvider;
+import com.example.nycschool.common.SchedulerProvider;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schoolslist.repository.ISchoolsListRepository;
 import com.example.nycschool.schoolslist.repository.SchoolsListRepository;
@@ -26,17 +27,19 @@ public class SchoolsListViewModel extends BaseViewModel {
     public MutableLiveData<List<School>> schoolsLiveData;
     public MutableLiveData<Throwable> schoolsErrorLiveData;
     public ISchoolsListRepository repository;
+    public ISchedulerProvider schedulerProvider;
 
     public SchoolsListViewModel() {
         this.schoolsLiveData = new MutableLiveData<>();
         this.schoolsErrorLiveData = new MutableLiveData<>();
         this.repository = new SchoolsListRepository();
+        this.schedulerProvider = new SchedulerProvider();
     }
 
     public void loadSchools() {
         repository.getAllSchools()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
             .subscribeWith(new SchoolsListObserver());
     }
 

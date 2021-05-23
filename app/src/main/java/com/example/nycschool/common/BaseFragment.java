@@ -20,7 +20,6 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
     public View rootView;
     public ViewModelProvider viewModelProvider;
     public VM viewModel;
-    public NavController navController;
     public IToaster toaster;
 
     protected Class<VM> vmClass;
@@ -34,7 +33,7 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
         initialize();
         viewModelProvider = new ViewModelProvider(this);
         viewModel = viewModelProvider.get(vmClass);
-        toaster = new Toaster();
+        toaster = new Toaster(getContext());
 
         viewModel.initialize(getArguments());
     }
@@ -42,7 +41,5 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        navController = Navigation.findNavController(view);
     }
 }

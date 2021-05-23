@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">20210522-matthewshoemaker-nycschool</string>
+    <string name="failed_toLoad_schools">We could not load the schools. Please try again.</string>
 </resources>

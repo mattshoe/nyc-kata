@@ -5,19 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.nycschool.R;
 import com.example.nycschool.common.BaseFragment;
+import com.example.nycschool.common.IStringProvider;
+import com.example.nycschool.common.StringProvider;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schoolslist.recyclerview.LayoutManagerFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListAdapterFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListNavigationDelegate;
+
 import java.util.List;
 
 /*
@@ -39,6 +45,7 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
     public SchoolsListAdapterFactory schoolsListAdapterFactory;
     public NavController navController;
     public NavDirectionsProvider navDirectionsProvider;
+    public IStringProvider stringProvider;
 
     @Override
     protected void initialize() {
@@ -52,7 +59,9 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         // Construct dependencies
         layoutManagerFactory = new LayoutManagerFactory();
         schoolsListAdapterFactory = new SchoolsListAdapterFactory();
+        navController = NavHostFragment.findNavController(this);
         navDirectionsProvider = new NavDirectionsProvider();
+        stringProvider = new StringProvider(getContext());
     }
 
     @Override
@@ -62,15 +71,18 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         @Nullable Bundle savedInstanceState
     ) {
         rootView = inflater.inflate(R.layout.schools_list_fragment, container, false);
-        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
+        observeSchoolData();
+
+        return rootView;
+    }
+
+    private void observeSchoolData() {
         // I'm ok with newing up these observers because i can capture them in tests via
-        // the mock viewmodel
+        // the mocked viewmodel
         viewModel.observeSchoolsList(this, new SchoolsListSuccessObserver());
         viewModel.observeSchoolsListError(this, new SchoolsListErrorObserver());
         viewModel.loadSchools();
-
-        return rootView;
     }
 
     private void configureRecyclerView(List<School> schools) {
@@ -83,8 +95,11 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
     }
 
     private void showDataLoadError() {
-        // In a production app this would be more robust and include remote logging, view updates, etc
-        toaster.show(getContext(), "Unable to load schools list", Toast.LENGTH_SHORT);
+        /*
+            In a production app this would be more robust and include remote error logging,
+            update the view to error state, etc
+         */
+        toaster.show(stringProvider.getStringResource(R.string.failed_toLoad_schools), Toast.LENGTH_SHORT);
     }
 
     @Override
