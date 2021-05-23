@@ -43,13 +43,13 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
      */
     public LayoutManagerFactory layoutManagerFactory;
     public SchoolsListAdapterFactory schoolsListAdapterFactory;
-    public NavController navController;
     public NavDirectionsProvider navDirectionsProvider;
     public IStringProvider stringProvider;
 
     @Override
     protected void initialize() {
         vmClass = SchoolsListViewModel.class; // Type Erasure forces us to provide class here where type is known
+        enableBackNav = false; // This is the root view so we don't wnat to pop back stack 
     }
 
     @Override
@@ -59,7 +59,6 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         // Construct dependencies
         layoutManagerFactory = new LayoutManagerFactory();
         schoolsListAdapterFactory = new SchoolsListAdapterFactory();
-        navController = NavHostFragment.findNavController(this);
         navDirectionsProvider = new NavDirectionsProvider();
         stringProvider = new StringProvider(getContext());
     }
