@@ -43,11 +43,17 @@ public class SchoolsListViewModel extends BaseViewModel {
             .subscribeWith(new SchoolsListObserver());
     }
 
-    public void observeSchoolsList(@NonNull LifecycleOwner owner, @NonNull Observer<List<School>> observer) {
+    public void observeSchoolsList(
+        @NonNull LifecycleOwner owner,
+        @NonNull Observer<List<School>> observer
+    ) {
         schoolsLiveData.observe(owner, observer);
     }
 
-    public void observeSchoolsListError(@NonNull LifecycleOwner owner, @NonNull Observer<Throwable> observer) {
+    public void observeSchoolsListError(
+        @NonNull LifecycleOwner owner,
+        @NonNull Observer<Throwable> observer
+    ) {
         schoolsErrorLiveData.observe(owner, observer);
     }
 

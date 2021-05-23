@@ -9,10 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nycschool.R;
@@ -49,7 +46,7 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
     @Override
     protected void initialize() {
         vmClass = SchoolsListViewModel.class; // Type Erasure forces us to provide class here where type is known
-        enableBackNav = false; // This is the root view so we don't wnat to pop back stack 
+        enableBackNav = false; // This is the root view so we don't wnat to pop back stack
     }
 
     @Override
