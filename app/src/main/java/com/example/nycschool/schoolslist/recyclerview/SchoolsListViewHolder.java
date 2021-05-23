@@ -1,0 +1,18 @@
+package com.example.nycschool.schoolslist.recyclerview;
+
+import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+public class SchoolsListViewHolder extends RecyclerView.ViewHolder {
+    private SchoolsListItemView view;
+
+    public SchoolsListViewHolder(SchoolsListItemView view) {
+        super(view);
+        this.view = view;
+    }
+
+    public SchoolsListItemView getItemView() {
+        return view;
+    }
+}

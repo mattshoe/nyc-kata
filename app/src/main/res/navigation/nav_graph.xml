@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/schools_list_fragment"
-        android:name="com.example.nycschool.SchoolsListFragment"
+        android:name="com.example.nycschool.schoolslist.SchoolsListFragment"
         android:label="SchoolsListFragment" />
 
 </navigation>

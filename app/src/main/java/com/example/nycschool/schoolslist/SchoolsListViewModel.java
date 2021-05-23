@@ -1,4 +1,4 @@
-package com.example.nycschool;
+package com.example.nycschool.schoolslist;
 
 import androidx.lifecycle.ViewModel;
 
