@@ -9,6 +9,9 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class School(
+    @field:Json(name = "dbn")
+    val id: String,
+
     @field:Json(name = "school_name")
     val name: String,
 
@@ -16,5 +19,14 @@ data class School(
     val address: String,
 
     @field:Json(name = "website")
-    val website: String
+    val website: String,
+
+    @field:Json(name = "overview_paragraph")
+    val description: String,
+
+    @field:Json(name = "school_email")
+    val email: String,
+
+    @field:Json(name = "phone_number")
+    val phoneNumber: String
 ): Parcelable

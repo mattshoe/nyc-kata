@@ -1,12 +1,8 @@
 package com.example.nycschool.schoolslist;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavDirections;
@@ -14,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nycschool.R;
 import com.example.nycschool.common.BaseFragment;
-import com.example.nycschool.common.IStringProvider;
-import com.example.nycschool.common.StringProvider;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schoolslist.recyclerview.LayoutManagerFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListAdapterFactory;
@@ -41,11 +35,11 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
     public LayoutManagerFactory layoutManagerFactory;
     public SchoolsListAdapterFactory schoolsListAdapterFactory;
     public NavDirectionsProvider navDirectionsProvider;
-    public IStringProvider stringProvider;
 
     @Override
     protected void initialize() {
         vmClass = SchoolsListViewModel.class; // Type Erasure forces us to provide class here where type is known
+        layoutId = R.layout.schools_list_fragment;
         enableBackNav = false; // This is the root view so we don't wnat to pop back stack
     }
 
@@ -57,20 +51,17 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         layoutManagerFactory = new LayoutManagerFactory();
         schoolsListAdapterFactory = new SchoolsListAdapterFactory();
         navDirectionsProvider = new NavDirectionsProvider();
-        stringProvider = new StringProvider(getContext());
     }
 
-    @Override
-    public View onCreateView(
-        @NonNull LayoutInflater inflater,
-        @Nullable ViewGroup container,
-        @Nullable Bundle savedInstanceState
-    ) {
-        rootView = inflater.inflate(R.layout.schools_list_fragment, container, false);
+    public void onResume() {
+        super.onResume();
 
-        observeSchoolData();
-
-        return rootView;
+        if (viewModel.getSchools() != null) {
+            configureRecyclerView(viewModel.getSchools());
+        }
+        else {
+            observeSchoolData();
+        }
     }
 
     private void observeSchoolData() {
@@ -95,7 +86,7 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
             In a production app this would be more robust and include remote error logging,
             update the view to error state, etc
          */
-        toaster.show(stringProvider.getStringResource(R.string.failed_toLoad_schools), Toast.LENGTH_SHORT);
+        toaster.show(stringProvider.getStringResource(R.string.failed_to_load_schools), Toast.LENGTH_SHORT);
     }
 
     @Override

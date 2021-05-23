@@ -1,4 +1,11 @@
 <resources>
-    <string name="app_name">20210522-matthewshoemaker-nycschool</string>
-    <string name="failed_toLoad_schools">We could not load the schools. Please try again.</string>
+    <string name="app_name">NYC Schools Portal</string>
+    <string name="failed_to_load_schools">We could not load the schools. Please try again.</string>
+    <string name="failed_to_load_sat_summary">We could not load this school\'s SAT Summary data. Please try again</string>
+    <string name="sat_summary_title">SAT Summary</string>
+    <string name="participants_label">Participants:</string>
+    <string name="loading">Loading...</string>
+    <string name="avg_reading_score_label">AVG Reading Score:</string>
+    <string name="avg_math_score_label">AVG Math Score:</string>
+    <string name="avg_writing_score_label">AVG Writing Score:</string>
 </resources>

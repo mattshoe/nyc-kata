@@ -29,11 +29,13 @@ public class SchoolsListViewModel extends BaseViewModel {
     public ISchoolsListRepository repository;
     public ISchedulerProvider schedulerProvider;
 
+    private List<School> schools;
+
     public SchoolsListViewModel() {
-        this.schoolsLiveData = new MutableLiveData<>();
-        this.schoolsErrorLiveData = new MutableLiveData<>();
-        this.repository = new SchoolsListRepository();
-        this.schedulerProvider = new SchedulerProvider();
+        schoolsLiveData = new MutableLiveData<>();
+        schoolsErrorLiveData = new MutableLiveData<>();
+        repository = new SchoolsListRepository();
+        schedulerProvider = new SchedulerProvider();
     }
 
     public void loadSchools() {
@@ -41,6 +43,10 @@ public class SchoolsListViewModel extends BaseViewModel {
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .subscribeWith(new SchoolsListObserver());
+    }
+
+    public List<School> getSchools() {
+        return schools;
     }
 
     public void observeSchoolsList(
@@ -61,6 +67,7 @@ public class SchoolsListViewModel extends BaseViewModel {
 
         @Override
         public void onSuccess(List<School> value) {
+            schools = value;
             schoolsLiveData.setValue(value);
         }
 
