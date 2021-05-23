@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.nycschool.common.BaseViewModel;
 import com.example.nycschool.models.School;
+import com.example.nycschool.schoolslist.repository.ISchoolsListRepository;
 import com.example.nycschool.schoolslist.repository.SchoolsListRepository;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class SchoolsListViewModel extends BaseViewModel {
      */
     public MutableLiveData<List<School>> schoolsLiveData;
     public MutableLiveData<Throwable> schoolsErrorLiveData;
-    public SchoolsListRepository repository;
+    public ISchoolsListRepository repository;
 
     public SchoolsListViewModel() {
         this.schoolsLiveData = new MutableLiveData<>();

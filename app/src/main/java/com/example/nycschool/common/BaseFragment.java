@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.nycschool.R;
 
@@ -18,6 +20,8 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
     public View rootView;
     public ViewModelProvider viewModelProvider;
     public VM viewModel;
+    public NavController navController;
+    public IToaster toaster;
 
     protected Class<VM> vmClass;
 
@@ -30,7 +34,15 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
         initialize();
         viewModelProvider = new ViewModelProvider(this);
         viewModel = viewModelProvider.get(vmClass);
+        toaster = new Toaster();
 
         viewModel.initialize(getArguments());
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        navController = Navigation.findNavController(view);
     }
 }

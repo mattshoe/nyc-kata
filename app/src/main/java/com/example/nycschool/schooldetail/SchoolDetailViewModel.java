@@ -1,8 +1,10 @@
 package com.example.nycschool.schooldetail;
 
+import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 
 import com.example.nycschool.common.BaseViewModel;
+import com.example.nycschool.common.NavArguments;
 import com.example.nycschool.models.School;
 
 public class SchoolDetailViewModel extends BaseViewModel {
@@ -10,6 +12,8 @@ public class SchoolDetailViewModel extends BaseViewModel {
 
     @Override
     public void initialize(Bundle info) {
-
+        school = info.getParcelable(NavArguments.SCHOOL_DETAIL_BUNDLE_KEY);
     }
+
+
 }

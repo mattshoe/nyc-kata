@@ -1,43 +1,44 @@
 package com.example.nycschool.schoolslist;
 
-import androidx.lifecycle.Observer;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.nycschool.R;
 import com.example.nycschool.common.BaseFragment;
 import com.example.nycschool.models.School;
 import com.example.nycschool.schoolslist.recyclerview.LayoutManagerFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListAdapterFactory;
 import com.example.nycschool.schoolslist.recyclerview.SchoolsListNavigationDelegate;
-import com.example.nycschool.common.Toaster;
-
 import java.util.List;
 
 /*
     Given more time, I'd have implemented a quarantine pattern to extract all logic into a
     collaborator that holds a reference to the fragment so that the fragment logic could be tested
-    in a vacuum without requiring instrumented tests
+    in a vacuum without requiring instrumented tests.
  */
 public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> implements SchoolsListNavigationDelegate {
     /*
         Breaking encapsulation here only because we do not control instantiation of fragments,
-        so in order to make it testable must do member injection as opposed to constructor
+        so in order to make it testable I'm doing member injection as opposed to constructor
         injection. This would be unnecessary if I'd have used the quarantine pattern as i could
         inject dependencies directly into the constructor
+
+        Alternatively, I believe another common practice is to use an IoC container like Dagger to
+        manage dependency injection.
      */
     public LayoutManagerFactory layoutManagerFactory;
     public SchoolsListAdapterFactory schoolsListAdapterFactory;
-    public Toaster toaster;
+    public NavController navController;
+    public NavDirectionsProvider navDirectionsProvider;
 
     @Override
     protected void initialize() {
@@ -51,7 +52,7 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         // Construct dependencies
         layoutManagerFactory = new LayoutManagerFactory();
         schoolsListAdapterFactory = new SchoolsListAdapterFactory();
-        toaster = new Toaster();
+        navDirectionsProvider = new NavDirectionsProvider();
     }
 
     @Override
@@ -61,6 +62,7 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         @Nullable Bundle savedInstanceState
     ) {
         rootView = inflater.inflate(R.layout.schools_list_fragment, container, false);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         // I'm ok with newing up these observers because i can capture them in tests via
         // the mock viewmodel
@@ -87,7 +89,7 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
 
     @Override
     public void navigateToDetail(School school) {
-        toaster.show(getContext(), school.getName(), Toast.LENGTH_LONG);
+        navController.navigate(navDirectionsProvider.navigateToSchoolDetail(school));
     }
 
     private class SchoolsListSuccessObserver implements Observer<List<School>> {
@@ -105,6 +107,12 @@ public class SchoolsListFragment extends BaseFragment<SchoolsListViewModel> impl
         public void onChanged(Throwable throwable) {
             if (throwable != null)
                 showDataLoadError();
+        }
+    }
+
+    class NavDirectionsProvider {
+        public NavDirections navigateToSchoolDetail(School school) {
+            return SchoolsListFragmentDirections.Companion.actionSchoolsListFragmentToSchoolDetailtFragment(school);
         }
     }
 }
